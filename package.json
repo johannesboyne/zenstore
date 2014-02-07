@@ -13,6 +13,9 @@
   "author": "Johannes Boyne <johannes@boyne.de>",
   "license": "MIT",
   "dependencies": {
-    "tap": "~0.4.8"
+    "tap": "~0.4.8",
+    "levelup": "~0.18.2",
+    "leveldown": "~0.10.2",
+    "jade": "~1.1.5"
   }
 }

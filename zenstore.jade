@@ -1,0 +1,59 @@
+doctype html
+html
+    head
+        title zenstore
+        style.
+            body { background: #4DB5CB; }
+            .zenstore {
+                padding-top: 60px;
+                color: #fff;
+                margin: 0px auto;
+                width: auto;
+                text-align: center;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight: 100;
+                padding-bottom: 60px;
+                font-size: 3em;
+            }
+            .zen {
+                font-weight: 200;
+                margin: 0px auto;
+                background-color: #f2f2f2;
+                width: auto;
+                height: auto;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                color: #333;
+                word-wrap: break-word;
+            }
+            span { padding: 10px; display: inline-block; }
+            .zenlink {
+                padding: 10px; 
+                border-top: 2px solid #4DB5CB;
+            }
+            .zenlink a {
+                color: #333;
+                text-decoration: none;
+            }
+            .zencode {
+                font-weight: 200;
+                background: none;
+                width: auto;
+                margin: 100px auto;
+                color: #255762;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                word-wrap: break-word;
+            }
+    body
+        .zenstore zenstore
+        .zen
+            span your private zenstorage URL is:
+            .zenlink
+                a(href='http://#{zenlink}') http://#{zenlink}
+        .zencode.
+            How to put data into zenstore: <br/>
+            <code>
+                curl -i \ <br/>
+                    -H "Content-Type: application/json" \<br/>
+                    -d '{"username":"xyz","password":"xyz"}' \<br/>
+                    http://#{zenlink}
+            </code>
