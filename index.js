@@ -3,7 +3,7 @@ var linkCreator = require('./linkCreator'),
     jade = require('jade');
 
 require('http').createServer(function (req, res) {
-    if (req.method === 'POST' && req.url.length === 41) {
+    if ((req.method === 'POST' || req.method === 'PUT') && req.url.length === 41) {
         var data = '';
         req.on('data', function (chunk) {
             data += chunk.toString();
@@ -21,6 +21,9 @@ require('http').createServer(function (req, res) {
             jsonStorage.get(req.url.replace(/\//, ''), function (value) {
                 res.end(value);
             });
+        } else if(req.url === '/create') {
+            res.writeHead(200, {'content-type': 'application/json'});
+            res.end(JSON.stringify({zenlink: req.headers.host + '/' + linkCreator.createLink()}));
         } else {
             res.writeHead(200, {'content-type': 'text/html'});
             res.end(jade.renderFile('./zenstore.jade', {zenlink: req.headers.host + '/' + linkCreator.createLink()}));
