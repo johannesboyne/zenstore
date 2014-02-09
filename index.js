@@ -11,21 +11,27 @@ var server = restify.createServer({
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
-
-server.get('/', function (req, res, next) {
-    res.send({link: linkCreator.createLink()});
+server.pre(function (req, res, next) {
+    res.contentType = 'json';
     return next();
 });
+
 function _store (req, res, next) {
     var _json;
     try { _json = JSON.stringify(req.body); } catch (e) { return res.end('["no json"]');  }
     jsonStorage.store({id: req.params.id, data: _json});
     res.end(_json);
 }
+
+server.get('/', function (req, res, next) {
+    res.end(JSON.stringify({link: linkCreator.createLink()}));
+});
 server.post('/:id', _store);
 server.put('/:id', _store);
 server.get('/:id', function (req, res, next) {
     jsonStorage.get(req.params.id, function (value) {
+        res.setHeader('Content-Type', 'application/json');
+        res.writeHead(200);
         res.end(value);
     });
 });
