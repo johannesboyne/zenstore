@@ -4,9 +4,13 @@ zenstore is a simple JSON storage backed by [leveldb](https://code.google.com/p/
 
 It is designed for simple use. Just request a new store by visiting the web-frontend or by calling the `/create` route.
 
+###Link 'secret' storage, that's like naming it
+
+This one is quite cool, if you want to give somebody an easy read access just use the `createZenlink` API call. With this goodie it is possible to hide the random generated 'secret' zenstorage ID behind a human readable name. E.g. your zenlink ID is `c739a87f21d1740fbf83411d3132043780043a8b` you can link it by calling `http://[...]/createZenlink/c739a87f21d1740fbf83411d3132043780043a8b/yourbeautifulname`. Now you can share this zenstorage with ease: `http://[...]/zenlink/yourbeautifulname`.
+
 ##Why didn't you use a framework like express, restify etc.
 
-Seriously? `32`LOC aren't to much! And one saves the framework overhead!
+Well, the routing etc. is very, very limited for this use-case! So, let's drop the framework, do it by hand and enjoy the pure power of Node.js.
 
 ##LICENSE
 
