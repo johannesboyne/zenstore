@@ -20,3 +20,4 @@ Yep, at the moment there is one at [http://zen-store.herokuapp.com/](http://zen-
 
 * implement delete method to erase a store
 * implement search and atomic operations for one zenstorage
+* real-time socket connection for zenstores
