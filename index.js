@@ -1,48 +1,44 @@
 var linkCreator = require('./linkCreator'),
-    jsonStorage = require('./jsonStorage'),
-    jade = require('jade');
+jsonStorage = require('./jsonStorage');
 
-require('http').createServer(function (req, res) {
-    if ((req.method === 'POST' || req.method === 'PUT') && (req.url.length === 41 || req.url.length === 48)) {
-        var data = '';
-        req.on('data', function (chunk) {
-            data += chunk.toString();
-        });
-        req.on('end', function () {
-            if (data.length > 0) {
-                jsonStorage.store({id: req.url.replace(/\//, ''), data: data});
-                res.writeHead(200, {'content-type': 'application/json'});
-                res.end(data);
-            }
-        });
-    } else {
-        // generate zenlink
-        if (req.url.match(/\/createZenlink\//)) {
-            var _id = req.url.replace(/\/createZenlink\//, '').split('/')[0];
-            var _name = req.url.replace(/\/createZenlink\//, '').split('/')[1];
-            jsonStorage.link(_id, _name);
-            res.writeHead(200, {'content-type': 'application/json'});
-            res.end(JSON.stringify({link: { id: _id, name: _name }}));
-        } else if (req.url.match(/\/zenlink\//)) {
-            // request zenlinks data
-            res.writeHead(200, {'content-type': 'application/json'});
-            jsonStorage.getForName(req.url.replace(/\/zenlink\//, ''), function (value) {
-                res.end(value);
-            });
-        } else if (req.url.length === 41) {
-            // request 'secret' zenstorage
-            res.writeHead(200, {'content-type': 'application/json'});
-            jsonStorage.get(req.url.replace(/\//, ''), function (value) {
-                res.end(value);
-            });
-        } else if(req.url === '/create') {
-            // create 'secret' zenstorage
-            res.writeHead(200, {'content-type': 'application/json'});
-            res.end(JSON.stringify({zenlink: req.headers.host + '/' + linkCreator.createLink()}));
-        } else {
-            // hello page
-            res.writeHead(200, {'content-type': 'text/html'});
-            res.end(jade.renderFile('./zenstore.jade', {zenlink: req.headers.host + '/' + linkCreator.createLink()}));
-        }
-    }
-}).listen(process.env.PORT || 1337);
+var restify = require('restify');
+
+var server = restify.createServer({
+    name: 'zenstore',
+    version: '0.0.2'
+});
+
+server.use(restify.acceptParser(server.acceptable));
+server.use(restify.queryParser());
+server.use(restify.bodyParser());
+
+server.get('/', function (req, res, next) {
+    res.send({link: linkCreator.createLink()});
+    return next();
+});
+function _store (req, res, next) {
+    var _json;
+    try { _json = JSON.stringify(req.body); } catch (e) { return res.end('["no json"]');  }
+    jsonStorage.store({id: req.params.id, data: _json});
+    res.end(_json);
+}
+server.post('/:id', _store);
+server.put('/:id', _store);
+server.get('/:id', function (req, res, next) {
+    jsonStorage.get(req.params.id, function (value) {
+        res.end(value);
+    });
+});
+server.get('/createZenlink/:id/:name', function (req, res, next) {
+    jsonStorage.link(req.params.id, req.params.name);
+    res.end(JSON.stringify({ link: { id: req.params.id, name: req.params.id } }));
+});
+server.get('/zenlink/:name', function (req, res, next) {
+    jsonStorage.getForName(req.params.name, function (value) {
+        res.end(value);
+    });
+});
+
+server.listen(process.env.PORT || 1337, function () {
+    console.log('%s listening at %s', server.name, server.url);
+});
