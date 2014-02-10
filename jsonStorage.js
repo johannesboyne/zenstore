@@ -11,8 +11,8 @@ module.exports.store = function (options, fn) {
     storage.put(options.id, options.data, fn);
 };
 
-module.exports.link = function (id, name) {
-    nametable.put(name, id);    
+module.exports.link = function (id, name, fn) {
+    nametable.put(name, id, fn);    
 };
 
 function _get (id, fn) {
@@ -48,9 +48,9 @@ module.exports.getForName = function (name, fn) {
     });
 };
 
-module.exports.linkComputation = function (options) {
-    computations.put(options.id, options.script);
+module.exports.linkComputation = function (options, fn) {
+    computations.put(options.id, options.script, fn);
 };
-module.exports.unlinkComputation = function (id) {
-    computations.del(id);
+module.exports.unlinkComputation = function (id, fn) {
+    computations.del(id, fn);
 };

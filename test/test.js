@@ -13,3 +13,34 @@ test('zenstorage json-storage and link creation', function (t) {
         });
     });
 });
+
+test('zenstorage should link names', function (t) {
+    var _tlink = linkCreator.createLink();
+    var _json = '{"test": 1}';
+    jsonStorage.store({id: _tlink, data: _json}, function () {
+        jsonStorage.link(_tlink, 'myname', function () {
+            jsonStorage.getForName('myname', function (value) {
+                t.equal(value, _json, 'got json for linked storage');
+                t.end();
+            });
+        });
+    });
+});
+
+test('zenstorage should do computations', function (t) {
+    var _tlink = linkCreator.createLink();
+    var _json = '{"test": 1}';
+    jsonStorage.store({id: _tlink, data: _json}, function () {
+        jsonStorage.linkComputation({id: _tlink, script: 'var output = data.test - 1;'}, function () {
+            jsonStorage.get(_tlink, function (value) {
+                t.equal(value, '0', 'computation is correct');
+                jsonStorage.unlinkComputation(_tlink, function () {
+                    jsonStorage.get(_tlink, function (v2) {
+                        t.equal(v2, _json);
+                        t.end();
+                    });
+                });
+            });
+        });
+    });
+});
