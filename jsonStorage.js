@@ -54,3 +54,8 @@ module.exports.linkComputation = function (options, fn) {
 module.exports.unlinkComputation = function (id, fn) {
     computations.del(id, fn);
 };
+module.exports.deleteStore = function (id, fn) {
+    computations.del(id);
+    nametable.del(id);
+    storage.del(id, fn);
+};

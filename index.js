@@ -45,6 +45,10 @@ server.get('/zenlink/:name', function (req, res, next) {
         res.end(value);
     });
 });
+server.get('/delete/:id', function (req, res, next) {
+    jsonStorage.deleteStore(req.params.id);
+    res.end(JSON.stringify({ delete: { id: req.params.id } }));
+});
 
 // Computation
 server.post('/linkComputation/:id', function (req, res, next) {
@@ -55,12 +59,6 @@ server.get('/unlinkComputation/:id', function (req, res, next) {
     jsonStorage.unlinkComputation(req.params.id);
     res.end(JSON.stringify({unlinkComputation: req.params.id}));
 });
-
-/*jsonStorage.get(req.params.id, function (value) {
-        var sb = {};
-        vm.runInNewContext('var data = ' + value + ';' + req.body.script , sb, 'myfile.vm');
-        res.end(JSON.stringify(sb.output));
-    });*/
 
 server.listen(process.env.PORT || 1337, function () {
     console.log('%s listening at %s', server.name, server.url);
