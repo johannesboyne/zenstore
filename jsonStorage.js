@@ -3,6 +3,12 @@ var storage = levelup('./zenstorage');
 var nametable = levelup('./nametable');
 var computations = levelup('./computations');
 var vm = require('vm');
+var EventEmitter = require('events').EventEmitter;
+var liveStream = require('level-live-stream')(storage, {old: false});
+liveStream.on('data', updateZenlinkSockets);
+
+var _e = new EventEmitter();
+module.exports.listen = _e;
 
 module.exports.store = function (options, fn) {
     if (!options.id) {
@@ -12,8 +18,26 @@ module.exports.store = function (options, fn) {
 };
 
 module.exports.link = function (id, name, fn) {
-    nametable.put(name, id, fn);    
+    nametable.get(name, function (err, value) {
+        if (err) {
+            nametable.put(id, name, fn);
+            nametable.put(name, id, fn);
+            fn(true);
+        } else {
+            fn(false);
+        }
+    });
 };
+
+function updateZenlinkSockets (update) {
+    nametable.get(update.key, function (err, name) {
+        if (!err) {
+            console.log(update.key, name);
+            _e.emit('update:name', name);
+        }
+        _e.emit('update:key', update.key);
+    });
+}
 
 function _get (id, fn) {
     var data = '["nothing found"]';
@@ -56,6 +80,11 @@ module.exports.unlinkComputation = function (id, fn) {
 };
 module.exports.deleteStore = function (id, fn) {
     computations.del(id);
-    nametable.del(id);
+    nametable.get(id, function (err, name) {
+        if (!err) {
+            nametable.del(id);
+            nametable.del(name);
+        }
+    });
     storage.del(id, fn);
 };

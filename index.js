@@ -1,5 +1,6 @@
 var linkCreator = require('./linkCreator'),
-jsonStorage = require('./jsonStorage');
+jsonStorage = require('./jsonStorage'),
+realTimeUpdater = require('./rtUpdater')(jsonStorage);
 
 var restify = require('restify');
 
@@ -37,8 +38,10 @@ server.get('/:id', function (req, res, next) {
     });
 });
 server.get('/createZenlink/:id/:name', function (req, res, next) {
-    jsonStorage.link(req.params.id, req.params.name);
-    res.end(JSON.stringify({ link: { id: req.params.id, name: req.params.id } }));
+    jsonStorage.link(req.params.id, req.params.name, function (bool) {
+        if (bool) res.end(JSON.stringify({ link: { id: req.params.id, name: req.params.id } }));
+        else res.end(JSON.stringify(["name already taken - ɔːlˈrɛdi"]));
+    });
 });
 server.get('/zenlink/:name', function (req, res, next) {
     jsonStorage.getForName(req.params.name, function (value) {

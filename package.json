@@ -17,6 +17,7 @@
     "levelup": "~0.18.2",
     "leveldown": "~0.10.2",
     "jade": "~1.1.5",
-    "restify": "~2.6.1"
+    "restify": "~2.6.1",
+    "level-live-stream": "~1.4.9"
   }
 }
