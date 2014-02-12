@@ -18,6 +18,7 @@
     "leveldown": "~0.10.2",
     "jade": "~1.1.5",
     "restify": "~2.6.1",
-    "level-live-stream": "~1.4.9"
+    "level-live-stream": "~1.4.9",
+    "socket.io": "~0.9.16"
   }
 }

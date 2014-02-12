@@ -1,14 +1,15 @@
 var linkCreator = require('./linkCreator'),
+restify = require('restify'),
 jsonStorage = require('./jsonStorage'),
-realTimeUpdater = require('./rtUpdater')(jsonStorage);
+realTimeUpdater = require('./rtUpdater');
 
-var restify = require('restify');
 
 var server = restify.createServer({
     name: 'zenstore',
     version: '0.0.2'
 });
 
+realTimeUpdater(jsonStorage, server);
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
