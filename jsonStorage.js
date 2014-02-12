@@ -32,8 +32,9 @@ module.exports.link = function (id, name, fn) {
 function updateZenlinkSockets (update) {
     nametable.get(update.key, function (err, name) {
         if (!err) {
-            console.log(update.key, name);
-            _e.emit('update:name', name);
+            _get(update.key, function (data) {
+                _e.emit('update:name', name, data);
+            });
         }
         _e.emit('update:key', update.key);
     });
