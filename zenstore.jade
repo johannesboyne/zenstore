@@ -2,67 +2,35 @@ doctype html
 html
     head
         title zenstore
+        script(src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js')
+        link(href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css', rel='stylesheet')
+        script(src='/socket.io/socket.io.js')
         style.
-            body { background: #4DB5CB; }
-            .zenstore {
-                padding-top: 60px;
-                color: #fff;
-                margin: 0px auto;
-                width: auto;
-                text-align: center;
-                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                font-weight: 100;
-                padding-bottom: 60px;
-                font-size: 3em;
+            body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin:0; padding:0; }
+            #map { position:absolute; top:0; bottom:0; right: 350px; left: 0px; }
+            .sidebar, .ndsidebar { position: absolute; top: 0; bottom: 0px; right: 0; width: 349px;
+                border-left: 1px solid #fff;
+                display: block;
+                background: #2C84CB;
             }
-            .zen {
-                font-weight: 200;
-                margin: 0px auto;
-                background-color: #f2f2f2;
-                width: auto;
-                height: auto;
-                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                color: #333;
-                word-wrap: break-word;
+            .zen { margin-top: 10px; margin-left: 10px; font-weight: 100; font-size: 2em; color: #fff; }
+            .follow {
+                padding: 10px;
+                background: #fff;
             }
-            span { padding: 10px; display: inline-block; }
-            .zenlink {
-                padding: 10px; 
-                border-top: 2px solid #4DB5CB;
-            }
-            .zenlink a {
-                color: #333;
-                text-decoration: none;
-            }
-            .zencode {
-                font-weight: 200;
-                background: none;
-                width: auto;
-                margin: 100px auto;
-                color: #255762;
-                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                word-wrap: break-word;
-            }
-            .github a { font-size: 0.6em; position: fixed; bottom: 10px; left: 10px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #255762; }
     body
-        .zenstore zenstore
-        .zen
-            span your private zenstorage URL is:
-            .zenlink
-                a(href='http://#{zenlink}') http://#{zenlink}
-        .zencode.
-            How to put data into zenstore: <br/>
-            <code>
-                curl -i \ <br/>
-                    -H "Content-Type: application/json" \<br/>
-                    -d '{"username":"xyz","password":"xyz"}' \<br/>
-                    http://#{zenlink}
-            </code>
-        .zencode.
-            How to receive data from zenstore: <br/>
-            <code>
-                curl http://#{zenlink}
-            </code>
-        .github
-            span
-                a(href='https://github.com/johannesboyne/zenstore') check on github
+        #map
+        .sidebar
+            .zen zen-store &#9729;
+            .follow
+                span(id='followtxt')
+        script.
+            var socket = io.connect('http://localhost');
+            socket.on('update:mylink', function (data) {
+                console.log(data);
+                document.getElementById('followtxt').textContent = JSON.stringify(data.data);
+                marker.setLatLng(L.latLng(Math.cos(Math.random()*50 * 0.5) * 50,Math.sin(Math.random()*50) * 50))
+            });
+            var map = L.mapbox.map('map', 'imdbmap.h8m50odg');
+            var marker = L.marker([0, 0], {}); marker.addTo(map);
+        
