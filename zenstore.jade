@@ -6,12 +6,54 @@ html
         link(href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css', rel='stylesheet')
         script(src='/socket.io/socket.io.js')
         style.
+            @-webkit-keyframes expand {
+                0% { width: 349px; }
+                40%   { width: 349px; }
+                  100% { width: 100%; }
+            }
+            @-moz-keyframes expand {
+                0% { width: 349px; }
+                40%   { width: 349px; }
+                  100% { width: 100%; }
+            }
+            @-o-keyframes expand {
+                0% { width: 349px; }
+                40%   { width: 349px; }
+                  100% { width: 100%; }
+            }
+            @keyframes expand {
+                0% { width: 349px; }
+                40%   { width: 349px; }
+                  100% { width: 100%; }
+            }
             body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin:0; padding:0; }
-            #map { position:absolute; top:0; bottom:0; right: 350px; left: 0px; }
+            .type {
+                position:absolute; 
+                top:0; bottom:0; 
+                right: 350px; left: 0px;
+            }
+            .type span {
+                color: #ccc;
+                margin: 25% 10px;
+                width: 444px;
+                display: inline-block;
+                font-size: 4em;
+            }
+            .type #map {
+                width: 100%;
+                height: 100%;
+            }
             .sidebar, .ndsidebar { position: absolute; top: 0; bottom: 0px; right: 0; width: 349px;
                 border-left: 1px solid #fff;
                 display: block;
                 background: #2C84CB;
+                -webkit-animation: expand 1.6s 1; /* Safari 4+ */
+                -moz-animation:    expand 1.6s 1; /* Fx 5+ */
+                -o-animation:      expand 1.6s 1; /* Opera 12+ */
+                animation:         expand 1.6s 1; 
+                -webkit-animation-fill-mode: forwards;
+                -moz-animation-fill-mode: forwards;
+                -o-animation-fill-mode: forwards;
             }
             .zen { margin-top: 10px; margin-left: 10px; font-weight: 100; font-size: 2em; color: #fff; }
             .follow {
@@ -19,7 +61,8 @@ html
                 background: #fff;
             }
     body
-        #map
+        .type
+            span No Type Found
         .sidebar
             .zen zen-store &#9729;
             .follow
@@ -29,8 +72,12 @@ html
             socket.on('update:mylink', function (data) {
                 console.log(data);
                 document.getElementById('followtxt').textContent = JSON.stringify(data.data);
-                marker.setLatLng(L.latLng(Math.cos(Math.random()*50 * 0.5) * 50,Math.sin(Math.random()*50) * 50))
+                //marker.setLatLng(L.latLng(Math.cos(Math.random()*50 * 0.5) * 50,Math.sin(Math.random()*50) * 50))
             });
-            var map = L.mapbox.map('map', 'imdbmap.h8m50odg');
-            var marker = L.marker([0, 0], {}); marker.addTo(map);
+            var notype = true;
+            if (notype) {
+
+            }
+            //var map = L.mapbox.map('map', 'imdbmap.h8m50odg');
+            //var marker = L.marker([0, 0], {}); marker.addTo(map);
         
