@@ -2,8 +2,9 @@ doctype html
 html
     head
         title zenstore
-        script(src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js')
-        link(href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css', rel='stylesheet')
+        script(src='http://underscorejs.org/underscore-min.js')
+        script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js")
+        script(src='http://backbonejs.org/backbone-min.js')
         script(src='/socket.io/socket.io.js')
         style.
             @-webkit-keyframes expand {
@@ -39,10 +40,6 @@ html
                 display: inline-block;
                 font-size: 4em;
             }
-            .type #map {
-                width: 100%;
-                height: 100%;
-            }
             .sidebar, .ndsidebar { position: absolute; top: 0; bottom: 0px; right: 0; width: 349px;
                 border-left: 1px solid #fff;
                 display: block;
@@ -69,15 +66,21 @@ html
                 span(id='followtxt')
         script.
             var socket = io.connect('http://localhost');
-            socket.on('update:mylink', function (data) {
-                console.log(data);
-                document.getElementById('followtxt').textContent = JSON.stringify(data.data);
-                //marker.setLatLng(L.latLng(Math.cos(Math.random()*50 * 0.5) * 50,Math.sin(Math.random()*50) * 50))
+            var R = Backbone.Router.extend({
+                routes: {
+                    'follow/:link': function (link) {
+                        $.get('/zenlink/'+link, function (data, success) {
+                            if (success) {
+                                document.getElementById('followtxt').textContent = data; 
+                            }
+                        });
+                        socket.on('update:mylink', function (data) {
+                            console.log(data);
+                            document.getElementById('followtxt').textContent = JSON.stringify(data.data);
+                     });
+                    }
+                }
             });
-            var notype = true;
-            if (notype) {
-
-            }
-            //var map = L.mapbox.map('map', 'imdbmap.h8m50odg');
-            //var marker = L.marker([0, 0], {}); marker.addTo(map);
-        
+            new R();
+            Backbone.history.start({pushState: true});
+            
