@@ -1,7 +1,6 @@
 var linkCreator = require('./linkCreator'),
 restify = require('restify'),
 jsonStorage = require('./jsonStorage'),
-contentServer = require('./contentServer'),
 realTimeUpdater = require('./rtUpdater');
 
 var server = restify.createServer({
@@ -9,7 +8,7 @@ var server = restify.createServer({
     version: '0.0.2'
 });
 
-realTimeUpdater(jsonStorage, server, contentServer);
+realTimeUpdater(jsonStorage, server);
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());

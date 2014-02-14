@@ -1,7 +1,7 @@
 var levelup = require('levelup');
-var storage = levelup('./zenstorage');
-var nametable = levelup('./nametable');
-var computations = levelup('./computations');
+var storage = levelup(__dirname + '/zenstorage');
+var nametable = levelup(__dirname + '/nametable');
+var computations = levelup(__dirname + '/computations');
 var vm = require('vm');
 var EventEmitter = require('events').EventEmitter;
 var liveStream = require('level-live-stream')(storage, {old: false});
