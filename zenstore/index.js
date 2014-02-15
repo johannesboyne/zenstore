@@ -1,7 +1,8 @@
 var linkCreator = require('./linkCreator'),
 restify = require('restify'),
 jsonStorage = require('./jsonStorage'),
-realTimeUpdater = require('./rtUpdater');
+realTimeUpdater = require('./rtUpdater'),
+zenwebapp = require('../zenwebapp');
 
 var server = restify.createServer({
     name: 'zenstore',
@@ -63,6 +64,8 @@ server.get('/unlinkComputation/:id', function (req, res, next) {
     res.end(JSON.stringify({unlinkComputation: req.params.id}));
 });
 
-server.listen(8082, function () {
+zenwebapp.create(server);
+
+server.listen(process.env.PORT || 80, function () {
     console.log('%s listening at %s', server.name, server.url);
 });
