@@ -71,16 +71,17 @@ html
                     'follow/:link': function (link) {
                         $.get('/zenlink/'+link, function (data, success) {
                             if (success) {
-                                document.getElementById('followtxt').textContent = data; 
+                                $('#followtxt').text(data); 
                             }
                         });
                         socket.on('update:mylink', function (data) {
                             console.log(data);
-                            document.getElementById('followtxt').textContent = JSON.stringify(data.data);
+                            $('#followtxt').text(JSON.stringify(data.data));
                      });
                     }
                 }
             });
+            $('#followtxt').html('<a href="https://github.com/johannesboyne/zenstore">Show on Github, see what it is</a>');
             new R();
             Backbone.history.start({pushState: true});
             

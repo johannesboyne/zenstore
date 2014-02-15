@@ -1,14 +1,14 @@
----
-
-Build-Status: Broken ;)
-
----
-
 #zenstore
 
 zenstore is a simple JSON storage backed by [leveldb](https://code.google.com/p/leveldb/), [node-levelup](https://github.com/rvagg/node-levelup). You can easily `post` or `put` data to the storage and receive it by a simple `get`.
 
 It is designed for simple use. Just request a new store by visiting the web-frontend or by calling the `/create` route.
+
+####What it will become in the future
+
+zenstore is supposed to be a simple "back-end" like structure for the "Internet of Thungs" (IoT) - [IoT-Wikipedia](http://en.wikipedia.org/wiki/Internet_of_Things), [IoT-McKinsey](http://www.mckinsey.com/insights/high_tech_telecoms_internet/the_internet_of_things), [IoT-Europe](http://www.internet-of-things.eu/). All this is very cool, but how to connect and store the data of **things**?
+
+zenstore tries to solve the problem, it gives everyone the possibility to simply store and exchange data!
 
 ###Link 'secret' storage, that's like naming it
 
@@ -57,10 +57,6 @@ Quite cool, isn't it. And it should be save as well because we are using the nod
 ##LICENSE
 
 MIT
-
-##Is there a hosted version?
-
-Yep, at the moment there is one at [http://zen-store.herokuapp.com/](http://zen-store.herokuapp.com/)! If you want a secure, high-end, poolished and backuped one - ask ;)
 
 ##Roadmap
 

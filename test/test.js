@@ -1,6 +1,6 @@
 var test = require('tap').test,
-    jsonStorage = require('../jsonStorage'),
-    linkCreator = require('../linkCreator');
+    jsonStorage = require('../zenstore/jsonStorage'),
+    linkCreator = require('../zenstore/linkCreator');
 
 test('zenstorage json-storage and link creation', function (t) {
     t.equal(linkCreator.createLink().length, 40, 'link is 40 chars long');
