@@ -44,3 +44,22 @@ test('zenstorage should do computations', function (t) {
         });
     });
 });
+
+test('zenstore tcp server', function (t) {
+    var http = require('http');
+    var rtupdater = require('../zenstore/rtUpdater')(jsonStorage, http.createServer(function () {}));
+    var net = require('net');
+    var client = net.connect({port: 8124},
+                             function() { //'connect' listener
+                                 client.write('update:testname');
+                                 jsonStorage.link('tid', 'testname', function () {
+                                     jsonStorage.store({id: 'tid', data: '{"test": 1}'});
+                                 });
+                             });
+    client.on('data', function(data) {
+        t.equal(data.toString(), '{"test": 1}');
+        client.end();
+        t.end();
+    });
+
+});

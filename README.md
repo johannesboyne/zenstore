@@ -61,4 +61,4 @@ MIT
 ##Roadmap
 
 * implement search and atomic operations for one zenstorage
-* real-time socket connection for zenstores
+* implement preview for data-types at the "follow" subpage
