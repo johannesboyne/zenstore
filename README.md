@@ -54,6 +54,8 @@ $ curl curl http://localhost:1337/zenlink/abc
 
 Quite cool, isn't it. And it should be save as well because we are using the node.js `vm` module and that runs everything you pass in inside a sandbox. If you receiver the raw data after you linked a computation your computation fails.
 
+*To make it work* you always have to follow a simple structure: `var output = ...` is the variable returned to the request. `data.<yourdata>` holds the stored data and `{"script": }` is the anchor for a computation. From then, it is pure JS & Node love.
+
 ##LICENSE
 
 MIT
