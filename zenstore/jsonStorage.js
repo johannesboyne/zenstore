@@ -19,7 +19,8 @@ module.exports.store = function (options, fn) {
 
 module.exports.link = function (id, name, fn) {
     nametable.get(name, function (err, value) {
-        if (err) {
+        if (err && err.notFound) {
+            // with this two way handle, it get's a little bit easier ;)
             nametable.put(id, name, fn);
             nametable.put(name, id, fn);
             fn(true);
