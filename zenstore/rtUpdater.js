@@ -19,6 +19,17 @@ module.exports = function (jsonStorage, server) {
         });
         c.on('end', function() {
             console.log('tcpserver disconnected');
+            for (var i = 0; i < sockets.length; i++) {
+                if (sockets[i].socket === c) {
+                    if (i === 0) sockets.shift();
+                    else if (i === sockets.length-1) sockets.pop();
+                    else {
+                        var _s = [];
+                        _s.concat(sockets.slice(0,i), sockets.slice(i+1, sockets.length));
+                        sockets = _s;
+                    }
+                }
+            }
         });
     });
     tcpserver.listen(8124, function() { //'listening' listener
