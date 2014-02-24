@@ -8,9 +8,9 @@ It is designed for simple use. Just request a new store by visiting the web-fron
 
 zenstore is supposed to be a simple "back-end" like structure for the "Internet of Thungs" (IoT) - [IoT-Wikipedia](http://en.wikipedia.org/wiki/Internet_of_Things), [IoT-McKinsey](http://www.mckinsey.com/insights/high_tech_telecoms_internet/the_internet_of_things), [IoT-Europe](http://www.internet-of-things.eu/). All this is very cool, but how to connect and store the data of **things**?
 
-zenstore tries to solve the problem, it gives everyone the possibility to simply store and exchange data!
+zenstore tries to solve the problem, it gives everyone the possibility to simply store and exchange data! This is done via an easy to use GET/PUT/POST (REST) API as well as a TCP service (for the high end users).
 
-###Link 'secret' storage, that's like naming it
+###Link 'secret' storages, that's like naming it
 
 This one is quite cool, if you want to give somebody an easy read access just use the `createZenlink` API call. With this goodie it is possible to hide the random generated 'secret' zenstorage ID behind a human readable name. E.g. your zenlink ID is `c739a87f21d1740fbf83411d3132043780043a8b` you can link it by calling `http://[...]/createZenlink/c739a87f21d1740fbf83411d3132043780043a8b/yourbeautifulname`. Now you can share this zenstorage with ease: `http://[...]/zenlink/yourbeautifulname`.
 
