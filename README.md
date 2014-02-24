@@ -1,5 +1,7 @@
 #zenstore
 
+![zenstore logo](https://raw.github.com/johannesboyne/zenstore/master/zenlogo.png)
+
 zenstore is a simple JSON storage backed by [leveldb](https://code.google.com/p/leveldb/), [node-levelup](https://github.com/rvagg/node-levelup). You can easily `post` or `put` data to the storage and receive it by a simple `get`.
 
 It is designed for simple use. Just request a new store by visiting the web-frontend or by calling the `/create` route.
