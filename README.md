@@ -12,7 +12,7 @@ zenstore is supposed to be a simple "back-end" like structure for the "Internet 
 
 zenstore tries to solve the problem, it gives everyone the possibility to just store and exchange data! This is done via an easy to use GET/PUT/POST (REST) API as well as a TCP service (for the high end users).
 
-*BTW:* Do you want to use zenstore from the CLI? Go fo [zenstorecli](https://github.com/johannesboyne/zenstorecli)
+*BTW:* Do you want to use zenstore from the CLI? Go to [zenstorecli](https://github.com/johannesboyne/zenstorecli)
 
 ###Link 'secret' storages, that's like naming it
 
