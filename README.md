@@ -68,3 +68,4 @@ MIT
 
 * implement search and atomic operations for one zenstorage
 * implement preview for data-types at the "follow" subpage
+* implement basic-auth (maybe, atm. I do like the sha1 secret-ids)
