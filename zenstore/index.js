@@ -74,7 +74,7 @@ server.get('/unlinkComputation/:id', function (req, res, next) {
 
 zenwebapp.create(server);
 
-server.listen(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 80, function () {
+server.listen(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 80, process.env.OPENSHIFT_NODEJS_IP || 'localhost', function () {
   console.log('%s listening at %s', server.name, server.url);
 });
 
