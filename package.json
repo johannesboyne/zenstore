@@ -21,6 +21,7 @@
     "level-live-stream": "~1.4.9",
     "socket.io": "~0.9.16",
     "json-scrape": "0.0.2",
-    "highland": "~1.14.0"
+    "highland": "~1.14.0",
+    "JSONStream": "*"
   }
 }
