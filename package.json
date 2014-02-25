@@ -2,7 +2,7 @@
   "name": "zenstore",
   "version": "0.0.1",
   "description": "A simple storage for you zen-timer to connect multiple devices.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "node test/test.js"
   },
