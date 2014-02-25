@@ -10,7 +10,7 @@ It is designed for simple use. Just request a new store by visiting the web-fron
 
 zenstore is supposed to be a simple "back-end" like structure for the "Internet of Thungs" (IoT) - [IoT-Wikipedia](http://en.wikipedia.org/wiki/Internet_of_Things), [IoT-McKinsey](http://www.mckinsey.com/insights/high_tech_telecoms_internet/the_internet_of_things), [IoT-Europe](http://www.internet-of-things.eu/). All this is very cool, but how to connect and store the data of **things**?
 
-zenstore tries to solve the problem, it gives everyone the possibility to simple store and exchange data! This is done via an easy to use GET/PUT/POST (REST) API as well as a TCP service (for the high end users).
+zenstore tries to solve the problem, it gives everyone the possibility to just store and exchange data! This is done via an easy to use GET/PUT/POST (REST) API as well as a TCP service (for the high end users).
 
 *BTW:* Do you want to use zenstore from the CLI? Go fo [zenstorecli](https://github.com/johannesboyne/zenstorecli)
 
