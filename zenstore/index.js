@@ -74,12 +74,12 @@ server.get('/unlinkComputation/:id', function (req, res, next) {
 
 zenwebapp.create(server);
 
-server.listen(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 80, process.env.OPENSHIFT_NODEJS_IP || 'localhost', function () {
+server.listen(process.env.PORT || 80, function () {
   console.log('%s listening at %s', server.name, server.url);
 });
 
 
-var tcpport = process.env.OPENSHIFT_NODEJS_PORT_TCP || process.env.PORT_TCP || 8124;
+var tcpport = process.env.PORT_TCP || 8124;
 tcpserver.listen(tcpport, function() { //'listening' listener
   console.log('tcpserver bound @ %s', tcpport);
 });
