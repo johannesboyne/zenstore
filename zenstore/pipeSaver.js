@@ -22,6 +22,9 @@ module.exports = function (tcpserver, jsonStorage) {
         });
       }
     });
+    scraper.on('error', function () {
+      // drop silently
+    });
     client.pipe(scraper);
   });
   return emitter;

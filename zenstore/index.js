@@ -5,7 +5,6 @@ jsonStorage = require('./jsonStorage'),
 realTimeUpdater = require('./rtUpdater'),
 zenwebapp = require('../zenwebapp'),
 _ = require('highland'),
-JSONStream = require('JSONStream'),
 pipeSaver = require('./pipeSaver');
 
 var server = restify.createServer({
@@ -64,6 +63,9 @@ server.get('/delete/:id', function (req, res, next) {
 
 // Computation
 server.post('/linkComputation/:id', function (req, res, next) {
+  if (req.params.id === undefined) {
+    return res.end('ID NOT FOUND!');
+  }
   jsonStorage.linkComputation({id: req.params.id, script: req.body.script});
   res.end(JSON.stringify({linkComputation: { id: req.params.id, script: req.body.script }}));
 });
